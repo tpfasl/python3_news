@@ -14,7 +14,7 @@ def get_rss_items(keyword):
     headers = {"User-Agent": "Mozilla/5.0"}
 
     try:
-        response = requests.get(url, timeout=5, headers=headers)
+        response = requests.get(url, timeout=3, headers=headers)
         response.raise_for_status()
     except Exception:
         return []
@@ -70,13 +70,13 @@ def get_articles(keyword):
     items = get_rss_items(keyword)
     results = []
 
-    items = items[:5]
+    items = items[:10]
 
     for item in items:
         title = item.title.get_text()
         link = item.link.get_text()
 
-        # 본문 가져오기
+        # 본문 가져오기 (출력은 안 하지만, get_articles 함수 정의를 유지하기 위해 실행)
         body = fetch_article_body(link)
 
         results.append({
@@ -93,8 +93,7 @@ if __name__ == "__main__":
     keyword = input("검색어 입력: ")
     data = get_articles(keyword)
 
-    for i, art in enumerate(data, 1):
-        print(f"\n===== 기사 {i} =====")
-        print("제목:", art["title"])
-        print("링크:", art["link"])
-        print("본문 일부:", art["body"][:150], "...")
+    for art in data:
+        print(art["title"])
+        print(art["link"])
+        print() # 각 기사 사이에 빈 줄 추가
