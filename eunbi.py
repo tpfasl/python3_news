@@ -76,7 +76,7 @@ def get_articles(keyword):
         title = item.title.get_text()
         link = item.link.get_text()
 
-        # 본문 가져오기 (출력은 안 하지만, get_articles 함수 정의를 유지하기 위해 실행)
+        # 본문 가져오기 (get_articles 함수 정의를 유지하기 위해 실행)
         body = fetch_article_body(link)
 
         results.append({
@@ -88,12 +88,15 @@ def get_articles(keyword):
     return results
 
 
-# 단독 실행 테스트용
 if __name__ == "__main__":
     keyword = input("검색어 입력: ")
     data = get_articles(keyword)
 
     for art in data:
-        print(art["title"])
-        print(art["link"])
-        print() # 각 기사 사이에 빈 줄 추가
+        print("---")
+        print(f"제목: {art['title']}")
+        print(f"링크: {art['link']}")
+        # --- 추가: 본문 출력 ---
+        print(f"본문 추출 결과 (일부): {art['body'][:20]}...") # 본문 앞 20자만 출력
+        print("---")
+        print()
