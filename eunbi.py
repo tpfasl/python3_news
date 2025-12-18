@@ -41,7 +41,7 @@ class NewsCollector:
         results = []
 
         for item in items[:limit]:
-            # 제목 정제 (기존 '제목 - 언론사' 형태에서 제목만 추출)
+            
             full_title = item.title.get_text()
             clean_title = full_title.rsplit(" - ", 1)[0] if " - " in full_title else full_title
             
@@ -71,20 +71,20 @@ class NewsCollector:
                 print("[알림] 키워드를 한 글자 이상 입력해주세요.")
                 continue
 
-            print(f"'{keyword}' 관련 최신 뉴스를 수집 중입니다...")
+            print(f"'{keyword}' 관련 최신 뉴스를 수집 중입니다.")
             news_data = self.get_news_list(keyword)
 
             if not news_data:
                 print("검색 결과가 없거나 수집에 실패했습니다.")
             else:
-                print(f"\n✅ '{keyword}' 관련 뉴스 총 {len(news_data)}개를 찾았습니다:")
+                print(f"\n '{keyword}' 관련 뉴스 총 {len(news_data)}개를 찾았습니다:")
                 print("-" * 50)
                 for idx, news in enumerate(news_data, 1):
                     print(f"[{idx}] {news['title']}")
                     print(f"{news['link']}")
                 print("-" * 50)
 
-# --- 프로그램 실행 ---
+# 프로그램 실행
 if __name__ == "__main__":
     app = NewsCollector()
     app.start_service()
